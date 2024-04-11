@@ -1,0 +1,41 @@
+from selenium import webdriver
+import time
+
+def close_other_account(target_username, your_username, your_password):
+    # Open Chrome browser
+    driver = webdriver.Chrome()
+    driver.get("https://www.instagram.com/accounts/login/")
+
+    # Wait for page to load
+    time.sleep(2)
+
+    # Fill in your username and password
+    driver.find_element_by_name("username").send_keys(your_username)
+    driver.find_element_by_name("password").send_keys(your_password)
+
+    # Click on login button
+    driver.find_element_by_css_selector("button[type='submit']").click()
+
+    # Wait for login process
+    time.sleep(5)
+
+    # Go to target account settings
+    driver.get("https://www.instagram.com/{}/".format(target_username))
+
+    # Click on the three dots button to open options
+    driver.find_element_by_css_selector("button[type='button']").click()
+
+    # Click on the "Report" option
+    driver.find_elements_by_xpath("//div[text()='Report']")[0].click()
+
+    # Click on "It's spam" option
+    driver.find_element_by_xpath("//button[text()='It's spam']").click()
+
+    # Confirm report
+    driver.find_element_by_xpath("//button[text()='Report']").click()
+
+    # Close browser
+    driver.quit()
+
+# Replace 'target_username', 'your_username', and 'your_password' with the appropriate credentials
+close_other_account("ozrrguney", "tokymickey", "Eren20202009")
